@@ -16,8 +16,7 @@ type EndpointStruct struct {
 
 var EndPoint EndpointStruct
 
-func InitEndpoints() {
-	EndPoint := new(EndpointStruct)
+func init() {
 	EndPoint.SendMessageEndpoint = "/send_msg"
 }
 
@@ -42,6 +41,7 @@ func SendMessage(id int, content, messageType string) error {
 	//posting
 	cli := new(http.Client)
 	reqUrl := fmt.Sprintf("http://%s:%s%s", config.Config.Server.Addr, config.Config.Server.Port, EndPoint.SendMessageEndpoint)
+
 	resp, err := cli.PostForm(reqUrl,
 		url.Values{
 			"message":      {bodyTmp.Message},
@@ -51,9 +51,11 @@ func SendMessage(id int, content, messageType string) error {
 			"auto_escape":  {fmt.Sprint(bodyTmp.Auto_escape)},
 		})
 
-	fmt.Println(resp.StatusCode)
 	if err != nil {
 		logrus.Error("Error when posting,msg:", err.Error())
 	}
+	body := make([]byte, 512)
+	n, err := resp.Body.Read(body)
+	logrus.Info("Got response from server,msg=", string(body[:n]))
 	return err
 }

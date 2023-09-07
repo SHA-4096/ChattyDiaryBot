@@ -26,6 +26,7 @@ func GetUserState(uid string) (string, error) {
 //Set the state of a user(Identified by uid)in redisDB,used for chat content control
 //none:user not in operation(no pair stored in redisDB)
 //1:user require to make a daily log
+//2:provide user with their latest n days of diary
 //
 func SetUserState(uid, state string) error {
 	err := model.SetKeyValuePair(fmt.Sprintf("%s.state", uid), state)

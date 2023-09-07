@@ -13,11 +13,11 @@ import (
 
 func main() {
 
-	logrus.Info("Setting up logrus")
-	util.InitLogrus()
-
 	logrus.Info("Loading Config")
 	config.InitConfig()
+
+	logrus.Info("Setting up logrus")
+	util.InitLogrus()
 
 	logrus.Info("Connecting to Database")
 	model.InitRedisDB()
