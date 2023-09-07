@@ -9,10 +9,22 @@ import (
 
 type ConfigStruct struct {
 	Host      HostStruct      `yaml:"host"`
+	Server    ServerStruct    `yaml:"server"`
 	LogConfig logConfigStruct `yaml:"logConfig"`
+	Database  DatabaseStruct  `yaml:"database"`
+}
+
+type DatabaseStruct struct {
+	Mysql MysqlStruct `yaml:"mysql"`
+	Redis RedisStruct `yaml:"redis"`
 }
 
 type HostStruct struct {
+	Port string `yaml:"port"`
+}
+
+type ServerStruct struct {
+	Addr string `yaml:"addr"`
 	Port string `yaml:"port"`
 }
 
@@ -20,6 +32,21 @@ type logConfigStruct struct {
 	LogPath    string `yaml:"logPath"`
 	RotateTime int    `yaml:"rotateTime"`
 	MaxAge     int    `yaml:"maxAge"`
+}
+
+type MysqlStruct struct {
+	Username string `yaml:"username"`
+	Password string `yaml:"password"`
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	DbName   string `yaml:"dbName"`
+	Timeout  string `yaml:"timeout"`
+}
+
+type RedisStruct struct {
+	RedisAddr     string `yaml:"redisAddr"`
+	RedisPassword string `yaml:"redisPassword"`
+	RedisDB       int    `yaml:"redisDB"`
 }
 
 var Config ConfigStruct

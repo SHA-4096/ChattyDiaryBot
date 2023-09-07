@@ -6,6 +6,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func InitReverseListener(e *echo.Echo) {
+func SetRouters(e *echo.Echo) {
 	e.POST("/Listener", controller.ReverseHttpHandle)
 }
