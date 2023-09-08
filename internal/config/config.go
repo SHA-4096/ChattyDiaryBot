@@ -12,6 +12,8 @@ type ConfigStruct struct {
 	Server    ServerStruct    `yaml:"server"`
 	LogConfig logConfigStruct `yaml:"logConfig"`
 	Database  DatabaseStruct  `yaml:"database"`
+	Bot       BotStruct       `yaml:"bot"`
+	Users     []int           `yaml:"users"`
 }
 
 type DatabaseStruct struct {
@@ -47,6 +49,11 @@ type RedisStruct struct {
 	RedisAddr     string `yaml:"redisAddr"`
 	RedisPassword string `yaml:"redisPassword"`
 	RedisDB       int    `yaml:"redisDB"`
+}
+
+type BotStruct struct {
+	RemindHour int    `yaml:"remindHour"`
+	BingAPIKey string `yaml:"bingAPIKey"`
 }
 
 var Config ConfigStruct

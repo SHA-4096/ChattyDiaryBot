@@ -2,6 +2,7 @@ package main
 
 import (
 	"ChattyDiaryBot/internal/config"
+	"ChattyDiaryBot/internal/middleware"
 	"ChattyDiaryBot/internal/model"
 	"ChattyDiaryBot/internal/util"
 	"ChattyDiaryBot/internal/view"
@@ -22,6 +23,9 @@ func main() {
 	logrus.Info("Connecting to Database")
 	model.InitRedisDB()
 	model.InitMysql()
+
+	logrus.Info("Starting cronical tasks")
+	middleware.InitCronTasks()
 
 	e := echo.New()
 	e.GET("/state", func(c echo.Context) error {

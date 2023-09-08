@@ -5,6 +5,7 @@ import (
 	"context"
 
 	"github.com/redis/go-redis/v9"
+	"github.com/sirupsen/logrus"
 )
 
 var redisClient *redis.Client
@@ -17,4 +18,8 @@ func InitRedisDB() {
 		DB:       config.Config.Database.Redis.RedisDB,
 	})
 	redisCtx = context.Background()
+	err := SetKeyValuePair("test", "000")
+	if err != nil {
+		logrus.Panic("failed to connect to redisDB")
+	}
 }

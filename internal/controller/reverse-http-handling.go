@@ -4,6 +4,7 @@ import (
 	param "ChattyDiaryBot/internal/controller/params"
 	"ChattyDiaryBot/internal/model"
 	"ChattyDiaryBot/internal/util"
+	cq "ChattyDiaryBot/internal/util/cq-code"
 	"fmt"
 	"strconv"
 	"time"
@@ -32,13 +33,22 @@ func ReverseHttpHandle(e echo.Context) error {
 	if res {
 		param.SetUserState(fmt.Sprintf("%d", msg.User_id), "1")
 	}
+	res, _ = regexp.MatchString("/s", msg.Message)
+	if res {
+		param.SetUserState(fmt.Sprintf("%d", msg.User_id), "3")
+	}
 
 	state, _ := param.GetUserState(fmt.Sprintf("%d", msg.User_id))
 
 	if state == "1" {
-		storeDiary(msg)
+		go storeDiary(msg)
+		param.SetUserState(fmt.Sprintf("%d", msg.User_id), "0")
 	} else if state == "2" {
-		queryDiary(msg)
+		go queryDiary(msg)
+		param.SetUserState(fmt.Sprintf("%d", msg.User_id), "0")
+	} else if state == "3" {
+		go getImage(msg)
+		param.SetUserState(fmt.Sprintf("%d", msg.User_id), "0")
 	}
 	defer e.Request().Body.Close()
 	fmt.Printf("%d:%s", msg.User_id, msg.Message)
@@ -56,7 +66,6 @@ func storeDiary(msg param.MessagePrivate) error {
 		return err
 	}
 	util.SendMessage(msg.User_id, "好的，今天的日记已保存喵！", "private")
-	param.SetUserState(fmt.Sprintf("%d", msg.User_id), "0")
 	return nil
 }
 
@@ -73,6 +82,18 @@ func queryDiary(msg param.MessagePrivate) error {
 	}
 	util.SendMessage(msg.User_id, content, "private")
 	logrus.Info(fmt.Sprintf("Finished pushing diary to %d", msg.User_id))
+	return nil
+
+}
+
+func getImage(msg param.MessagePrivate) error {
+	content := msg.Message[3:]
+	url, err := util.BingImageSearch(content)
+	if err != nil {
+		logrus.Error("Bing image API not successful,msg:" + err.Error())
+	}
+	util.SendMessage(msg.User_id, cq.MarshalImage(url), "private")
+	param.SetUserState(fmt.Sprintf("%d", msg.User_id), "0")
 	return nil
 
 }
