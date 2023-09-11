@@ -61,6 +61,6 @@ func BingImageSearch(word string) (string, error) {
 		logrus.Error("Error at unmarshaling,msg:" + err.Error())
 	}
 	rand.Seed(time.Now().Unix())
-	ind := rand.Int() % 10
+	ind := rand.Int() % len(bodyUnmarshaled.Value)
 	return bodyUnmarshaled.Value[ind].ContentUrl, err
 }

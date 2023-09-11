@@ -75,7 +75,7 @@ func queryDiary(msg param.MessagePrivate) error {
 		util.SendMessage(msg.User_id, "我认不出这个时间喵！", "private")
 		return fmt.Errorf("not a valid day count input")
 	}
-	diaries, _ := model.SelectDiary(msg.User_id, int64(timeBack*3600*24))
+	diaries, _ := model.SelectDiary(msg.User_id, time.Now().Unix()-int64(timeBack)*3600*24)
 	content := fmt.Sprintf("这是你近%d天的日记喵~\n\n", timeBack)
 	for _, diary := range diaries {
 		content += fmt.Sprintf("[%s]\n%s\n\n", diary.Date, util.Decode(diary.Content))
