@@ -12,7 +12,7 @@
 如果只是下载下来玩玩的话，可以使用docker迅速部署mysql和redis
 
 ### 配置
-将config/config-template.yaml改名为config.yaml,并按照文件里的提示进行配置
+配置文件为config/config.yaml，按照文件里的提示进行配置即可
 bot的图像搜索功能需要bing的图像搜索API,获取方法请自行搜索
 
 ### 运行
@@ -27,3 +27,42 @@ bot的所有功能都在私聊里面实现
 - `/r num` 查询近num天的日记
 - `/d xxxxxxx` 记录日记
 - `/s xxxxxxx` 搜索图片并随机返回一张
+
+## Layout
+```
+.
+├── README.md
+├── cmd
+│   └── main.go
+├── config
+│   ├── config-template.yaml
+├── go.mod
+├── go.sum
+└── internal
+    ├── config
+    │   └── config.go
+    ├── controller
+    │   ├── params
+    │   │   ├── param-http-post.go
+    │   │   └── state-handling.go
+    │   └── reverse-http-handling.go
+    ├── middleware
+    │   └── cronMessaging.go
+    ├── model
+    │   ├── diary.go
+    │   ├── init-mysql.go
+    │   ├── init-redis.go
+    │   └── operation-redis.go
+    ├── util
+    │   ├── cq-code
+    │   │   └── cq-marshal.go
+    │   ├── encodeUtil.go
+    │   ├── go-cqttp-apis.go
+    │   ├── image-search.go
+    │   ├── log.go
+    │   └── params
+    │       ├── request-param.go
+    │       └── response-param.go
+    └── view
+        └── router.go
+```
