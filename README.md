@@ -8,11 +8,12 @@
 ## 部署
 
 ### 数据库
-项目正常运行需要mysql和redis两个数据库
-如果只是下载下来玩玩的话，可以使用docker迅速部署mysql和redis
+项目正常运行需要mysql和redis两个数据库  
+如果只是下载下来玩玩的话，可以使用docker迅速部署mysql和redis  
+（当然，如果真的需要用bot写日记的话，请使用可靠的方式运行mysql）  
 
 ### 配置
-配置文件为config/config.yaml，按照文件里的提示进行配置即可
+配置文件为config/config.yaml，按照文件里的提示进行配置即可  
 bot的图像搜索功能需要bing的图像搜索API,获取方法请自行搜索
 
 ### 运行
