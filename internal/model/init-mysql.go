@@ -33,6 +33,6 @@ func InitMysql() {
 	}
 	err = migrate(db)
 	if err != nil {
-		panic(err)
+		logrus.Panic("Failed to make migrations to mysql.")
 	}
 }
