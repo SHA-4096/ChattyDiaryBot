@@ -1,0 +1,32 @@
+host: #设置自身的监听端口
+  port: "5701"
+
+server: #设置go-cqhttp的监听端口
+  addr: "localhost"
+  port: "5700"
+
+logConfig: #日志配置
+  logPath: "./deploy/logs"
+  maxAge: 1
+  rotateTime: 3
+
+database: #设置数据库
+  mysql:
+    username: ""
+    password: ""
+    host: "localhost"
+    port: "3306"
+    dbName: ""
+    timeout: "10s"
+  redis: 
+    redisAddr: "localhost:6379"
+    redisPassword: ""
+    redisDB: 0 #0 is the default db
+
+bot: #设置bot日记提醒的时间以及bing图片搜索的APIkey
+  remindHour: 23
+  bingAPIKey: ""
+
+users: #设置每日日记提醒的qq号
+  - 114514
+  - 1919810
