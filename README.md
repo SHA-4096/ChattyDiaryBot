@@ -7,6 +7,10 @@
 
 ## 部署
 
+### bot框架
+目前接入的bot框架是[go-cqhttp](https://docs.go-cqhttp.org/)  
+根据网站说明完成配置后启动bot框架  
+
 ### 数据库
 项目正常运行需要mysql和redis两个数据库  
 如果只是下载下来玩玩的话，可以使用docker迅速部署mysql和redis  
